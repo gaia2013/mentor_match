@@ -13,10 +13,10 @@
 ActiveRecord::Schema.define(version: 20180504085227) do
 
   create_table "rooms", force: :cascade do |t|
-    t.string "name"
+    t.string   "name",       null:false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "content"
+    t.string   "content",    null:false
   end
 
 end

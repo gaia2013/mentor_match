@@ -34,6 +34,7 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'jquery-rails'
 gem 'devise'
 gem 'kaminari'
+gem 'faker'              # 本物っぽいテストデータの作成
 
 
 group :development, :test do

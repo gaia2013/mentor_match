@@ -16,13 +16,17 @@
       <thead>
         <th>テーマ</th>
         <th>内容</th>
-        <th>リンク</th>
+        <th>作成日</th>
+        <th>更新日</th>
+        <th>詳細</th>
       </thead>
       <tbody>
         <% @rooms.each do |room| %>
           <tr>
             <td><%= room.name %></td>
             <td><%= room.content %></td>
+            <td><%= simple_time(room.created_at) %></td>
+            <td><%= simple_time(room.updated_at) %></td>
             <td><%= link_to '詳細', room, class: "btn btn-default btn-xs" %></td>
           </tr>
         <% end %>
