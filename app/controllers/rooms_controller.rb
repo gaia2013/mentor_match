@@ -1,4 +1,7 @@
 class RoomsController < ApplicationController
+
+  before_action :authenticate_user!, only: [:edit, :update, :destroy]
+
   def index
     @rooms = Room.page(params[:page])
   end
