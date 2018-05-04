@@ -1,2 +1,26 @@
-<h1>Rooms#edit</h1>
-<p>Find me in app/views/rooms/edit.html.erb</p>
+<div class="row">
+  <div class="col-lg-12">
+    <h1>相談内容の編集</h1>
+    <%= render partial: 'form', locals: { room: @room } %>
+    <button type="button" style="margin-top:5px;" class="btn btn-default" data-toggle="modal" data-target="#delete-room">相談室を削除する</button>
+    <%= link_to '戻る', room_path(@room),  style: "margin-top:5px;", class: "btn btn-default" %>
+  </div>
+</div>
+
+<div class="modal fade" id="delete-room">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">相談室の削除</h4>
+      </div>
+      <div class="modal-body">
+        <p><%= @room.name %>の相談室を削除しますか？</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">キャンセル</button>
+        <%= link_to '削除する', @room, method: :delete, class: "btn btn-danger" %>
+      </div>
+    </div>
+  </div>
+</div>

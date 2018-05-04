@@ -1,2 +1,13 @@
-<h1>Rooms#show</h1>
-<p>Find me in app/views/rooms/show.html.erb</p>
+<div class="row">
+  <div class="col-lg-12">
+    <h1>相談室</h1>
+    <dl>
+      <dt>テーマ</dt>
+      <dd style="margin:0px 0px 10px 20px"><%= @room.name %> </dd>
+      <dt>内容</dt>
+      <dd style="margin:0px 0px 10px 20px"><%= @room.content %></dd>
+    </dl>
+    <%= link_to '編集', edit_room_path(@room), class: "btn btn-default" %>
+    <%= link_to '戻る', rooms_path, class: "btn btn-default" %>
+  </div>
+</div>

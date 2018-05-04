@@ -1,4 +1,17 @@
-<%= form_with model: customer, local: true do |form| %>
+<%= form_with model: room, local: true do |form| %>
+
+  <% if room.errors.any? %>
+    <div class="alert alert-danger">
+      <p><b><%= room.errors.count %>件のエラーがあります</b></p>
+
+      <ul>
+      <% room.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <div class="form-group">
     <%= form.label :name %><br>
     <%= form.text_field :name, class: "form-control" %>
