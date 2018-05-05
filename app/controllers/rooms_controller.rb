@@ -1,6 +1,6 @@
 class RoomsController < ApplicationController
 
-  before_action :authenticate_user!, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
 
   def index
     @rooms = Room.page(params[:page])
@@ -8,6 +8,8 @@ class RoomsController < ApplicationController
 
   def show
       @room = Room.find(params[:id])
+      @comment = Comment.new
+      @comments = @room.comments
   end
 
   def new
