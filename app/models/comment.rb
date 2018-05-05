@@ -1,4 +1,6 @@
 class Comment < ApplicationRecord
+  has_many :room_users
+
   belongs_to :user
   belongs_to :room
 

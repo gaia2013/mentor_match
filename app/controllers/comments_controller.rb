@@ -3,6 +3,8 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     if @comment.save
+      @room_user = RoomUser.new(room_id: @comment.room_id,user_id: current_user.id)
+      @room_user.save
       redirect_to @comment.room
     else
       @room = @comment.room
