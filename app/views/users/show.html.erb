@@ -15,7 +15,7 @@
   <% @comments.each do |comment| %>
     <div class="media">
       <div class="media-body">
-        <h3><%= comment.room_user.room.name%></h3>
+        <h3><%= link_to comment.room_user.room.name, comment.room_user.room %></h3>
         <p class="text-muted">
           <%= simple_format(comment.body) %>
         </p>

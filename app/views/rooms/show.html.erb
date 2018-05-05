@@ -3,7 +3,11 @@
     <h1>テーマ：<%= @room.name %></h1>
     <dl>
       <dt>相談者</dt>
-      <dd style="margin:0px 0px 10px 20px"><%#= @room.room_users.users.all %></dd>
+      <dd style="margin:0px 0px 10px 20px">
+        <% @room.room_users.each do |room_user| %>
+          <%= link_to room_user.user.name, room_user.user %>
+        <% end %>
+      </dd>
       <dt>内容</dt>
       <dd style="margin:0px 0px 10px 20px"><%= @room.content %></dd>
 
