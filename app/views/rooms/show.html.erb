@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-lg-12">
-    <h1><%= @room.name %></h1>
+    <h1>テーマ：<%= @room.name %></h1>
     <dl>
       <dt>相談内容</dt>
       <dd style="margin:0px 0px 10px 20px"><%= @room.content %></dd>
@@ -11,17 +11,19 @@
         <div class="row">
           <div class="col-lg-12">
             <h2>返答履歴</h2>
-            <% @comments.each do |comment| %>
-              <div class="media">
-                <div class="media-body">
-                  <p>ユーザー名：<%= comment.user.name %></p>
-                  <p><%= simple_format(comment.body) %></p>
-                  <p class="text-muted">
-                    投稿日時：<%= comment.created_at.strftime('%Y/%m/%d %H:%M') %>
-                    <%= link_to "削除する", comment_path(comment), method: :delete %>
-                  </p>
+            <% if @comments.present? %>
+              <% @comments.each do |comment| %>
+                <div class="media">
+                  <div class="media-body">
+                    <p>ユーザー名：<%= comment.room_user.user.name %></p>
+                    <p><%= simple_format(comment.body) %></p>
+                    <p class="text-muted">
+                      投稿日時：<%= comment.created_at.strftime('%Y/%m/%d %H:%M') %>
+                      <%= link_to "削除する", room_comment_path(@room, comment), method: :delete %>
+                    </p>
+                  </div>
                 </div>
-              </div>
+              <% end %>
             <% end %>
           </div>
         </div>
@@ -29,13 +31,13 @@
     </dl>
 
     <!-- comment投稿フォーム -->
-    <%= form_with model: @comment, url: { controller: :comments, action: :create }, local: true do |form| %>
+    <%= form_with model: @comment, url: room_comments_path(@room), local: true do |form| %>
       <div class="form-group">
         <%= form.label :body , '返答' %><br>
         <%= form.text_area :body, class: "form-control" %>
       </div>
-      <%= form.hidden_field :room_id, value: @room.id %>
-      <%= form.hidden_field :user_id, value: current_user.id %>
+      <%#= form.hidden_field :room_id, value: @room.id %>
+      <%#= form.hidden_field :user_id, value: current_user.id %>
       <%= form.submit class: "btn btn-default" %>
     <% end %>
 

@@ -1,11 +1,10 @@
 class CommentsController < ApplicationController
 
   def create
-    @comment = Comment.new(comment_params)
+    @room_user = RoomUser.find_or_create_by(room_id: params[:room_id].to_i, user_id: current_user.id)
+    @comment = Comment.new(comment_params.merge(room_user_id: @room_user.id))
     if @comment.save
-      @room_user = RoomUser.new(room_id: @comment.room_id,user_id: current_user.id)
-      @room_user.save
-      redirect_to @comment.room
+      redirect_to @room_user.room
     else
       @room = @comment.room
       render template: "rooms/show"
@@ -15,11 +14,11 @@ class CommentsController < ApplicationController
   def destroy
     @comment = Comment.find(params[:id])
     @comment.destroy
-    redirect_to @comment.room
+    redirect_to @comment.room_user.room
   end
 
   private
     def comment_params
-      params.require(:comment).permit(:body, :room_id, :user_id)
+      params.require(:comment).permit(:body)
     end
 end

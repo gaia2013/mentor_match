@@ -9,7 +9,8 @@ class RoomsController < ApplicationController
   def show
       @room = Room.find(params[:id])
       @comment = Comment.new
-      @comments = @room.comments
+      room_users_ids = @room.room_users.pluck(:id)
+      @comments = Comment.where(room_user_id: room_users_ids)
   end
 
   def new
