@@ -15,9 +15,12 @@
   <% @comments.each do |comment| %>
     <div class="media">
       <div class="media-body">
-        <%= simple_format(comment.body) %>
+        <h3><%= comment.room_user.room.name%></h3>
         <p class="text-muted">
-          返答内容:<%= comment.created_at.strftime('%Y-%m-%d %H:%M') %>
+          <%= simple_format(comment.body) %>
+        </p>
+        <p>
+          <%= comment.created_at.strftime('%Y/%m/%d %H:%M') %>
         </p>
       </div>
     </div>
