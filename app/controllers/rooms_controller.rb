@@ -3,7 +3,9 @@ class RoomsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :update, :destroy]
 
   def index
-    @rooms = Room.page(params[:page])
+    # @rooms = Room.page(params[:page])
+    @q = Room.ransack(params[:q])
+    @rooms = @q.result.page(params[:page])
   end
 
   def show

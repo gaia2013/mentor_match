@@ -12,23 +12,51 @@
     <%= link_to '相談室を立ち上げる', new_room_path, class: "btn btn-default pull-right" %>
   </div>
 
+
+  <%= search_form_for @q do |f| %>
+    <div class="row">
+      <div class="col-sm-3 col-xs-12">
+        <div class="form-group">
+          <%= f.label :name_cont, 'テーマ' %>
+          <%= f.search_field :name_cont, class: "form-control input-sm" %>
+        </div>
+      </div>
+
+      <div class="col-sm-3 col-xs-12">
+        <div class="form-group">
+          <%= f.label :content_cont, '内容' %>
+          <%= f.search_field :content_cont, class: "form-control input-sm" %>
+        </div>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-xs-12 text-center">
+        <%= f.submit "検索", class: "btn btn-default" %>
+        <%= link_to "リセット", request.path, class:"btn btn-default" %>
+      </div>
+    </div>
+  <% end %>
+  <hr />
+
+
   <%= paginate @rooms %>
 
     <table class="table table-striped">
       <thead>
-        <th>テーマ</th>
-        <th>内容</th>
-        <th>参加者数</th>
-        <th>作成日</th>
-        <th>更新日</th>
-        <th>詳細</th>
+        <th><%= sort_link(@q, :name, "テーマ") %></th>
+        <th><%= sort_link(@q, :content, "内容") %></th>
+        <th><%= sort_link(@q, :room_users_count, "参加者数") %></th>
+        <th><%= sort_link(@q, :dreated_at, "作成日") %></th>
+        <th><%= sort_link(@q, :updated_at, "更新日") %></th>
+        <th><%= sort_link(@q, :name, "詳細") %></th>
       </thead>
       <tbody>
         <% @rooms.each do |room| %>
           <tr>
             <td><%= room.name %></td>
             <td><%= room.content %></td>
-            <td><%= room.room_users.count %></td>
+            <td><%= room.room_users_count %></td>
             <td><%= simple_time(room.created_at) %></td>
             <td><%= simple_time(room.updated_at) %></td>
             <td><%= link_to '詳細', room, class: "btn btn-default btn-xs" %></td>
