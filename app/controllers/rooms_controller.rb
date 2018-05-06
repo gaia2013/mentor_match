@@ -9,10 +9,11 @@ class RoomsController < ApplicationController
   end
 
   def show
+      RoomUser.order('room_user_id ASC')
       @room = Room.find(params[:id])
       @comment = Comment.new
       room_users_ids = @room.room_users.pluck(:id)
-      @comments = Comment.where(room_user_id: room_users_ids)
+      @comments = Comment.where(room_user_id: room_users_ids).order('created_at ASC')
   end
 
   def new

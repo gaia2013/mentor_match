@@ -1,5 +1,7 @@
 class CommentsController < ApplicationController
 
+  before_action :authenticate_user!, only: [:new, :destroy]
+
   def create
     @room_user = RoomUser.find_or_create_by(room_id: params[:room_id].to_i, user_id: current_user.id)
     @comment = Comment.new(comment_params.merge(room_user_id: @room_user.id))
@@ -11,7 +13,7 @@ class CommentsController < ApplicationController
       # 現在のroom_idをもつroom_users_id群を配列として抽出
       room_users_ids = @room.room_users.pluck(:id)
       # 上で指定したroom_users_id群をもつ全commentを抽出
-      @comments = Comment.where(room_user_id: room_users_ids)
+      @comments = Comment.where(room_user_id: room_users_ids).order('created_at ASC')
       render template: "rooms/show"
     end
   end
