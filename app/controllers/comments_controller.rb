@@ -6,7 +6,12 @@ class CommentsController < ApplicationController
     if @comment.save
       redirect_to @room_user.room
     else
-      @room = @comment.room
+      # レンダリングの際に@roomへroomテーブルを渡す。rooms/showで利用
+      @room = @room_user.room
+      # 現在のroom_idをもつroom_users_id群を配列として抽出
+      room_users_ids = @room.room_users.pluck(:id)
+      # 上で指定したroom_users_id群をもつ全commentを抽出
+      @comments = Comment.where(room_user_id: room_users_ids)
       render template: "rooms/show"
     end
   end
